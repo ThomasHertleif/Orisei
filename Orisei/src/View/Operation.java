@@ -1,5 +1,8 @@
 package View;
 
+import java.awt.BorderLayout;
+
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -8,36 +11,65 @@ import Model.RenameOperations;
 
 public class Operation {
 	private RenameOperations type;
-	
+
 	public Operation(RenameOperations type) {
 		this.type = type;
 	}
-	
+
 	public void updateOperationInputs(JPanel panel) {
 		panel.removeAll();
-		
-		JTextField textField;
-		JTextField textField_1;
+
 		switch (this.type) {
-			case Count:
-				panel.setLayout(new MigLayout("", "[grow][grow]", "[]"));
-				
-				textField = new JTextField();
-				panel.add(textField, "cell 0 0,growx");
-				textField.setColumns(10);
-				
-				textField_1 = new JTextField();
-				panel.add(textField_1, "cell 1 0,growx");
-				textField_1.setColumns(10);
-				break;
-			default:
-				break;
+		case Count:
+			countView(panel);
+			break;
+		case Prefix:
+			prefixView(panel);
+			break;
+		case Suffix:
+			suffixView(panel);
+			break;
+		default:
+			break;
 		}
 		panel.updateUI();
 	}
-	
+
 	@Override
 	public String toString() {
 		return type.toString();
 	}
+
+	private void countView(JPanel panel) {
+		panel.setLayout(new MigLayout("", "[grow][grow]", "[]"));
+		
+		JPanel pStart = new JPanel(new BorderLayout());
+		
+		JLabel lblStart = new JLabel("Start", JLabel.LEFT);
+		pStart.add(lblStart, BorderLayout.NORTH);
+		
+		JTextField textField = new JTextField("1");
+		pStart.add(textField, BorderLayout.CENTER);
+		textField.setColumns(10);
+
+		panel.add(pStart, "cell 0 0,growx");
+	}
+
+	private void prefixView(JPanel panel) {
+		panel.setLayout(new MigLayout("", "[grow][grow]", "[]"));
+
+		JTextField textField = new JTextField();
+		panel.add(textField, "cell 0 0,growx");
+		textField.setColumns(10);
+	}
+	
+	private void suffixView(JPanel panel) {
+		panel.setLayout(new MigLayout("", "[grow][grow]", "[]"));
+
+		JTextField textField = new JTextField();
+		panel.add(textField, "cell 0 0,growx");
+		textField.setColumns(10);
+	}
+	
+	
 }
