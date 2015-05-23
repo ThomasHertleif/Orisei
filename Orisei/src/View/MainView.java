@@ -4,10 +4,13 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTable;
 import javax.swing.JMenuBar;
+
 import net.miginfocom.swing.MigLayout;
+
 import javax.swing.table.DefaultTableModel;
 
 public class MainView {
@@ -76,6 +79,6 @@ public class MainView {
 				"Originame", "Neuer Name"
 			}
 		));
-		frmOrisei.getContentPane().add(table, "cell 0 1 3 1,grow");
+		frmOrisei.getContentPane().add(new JScrollPane(table), "cell 0 1 3 1,grow");
 	}
 }
