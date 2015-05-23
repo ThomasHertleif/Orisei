@@ -97,6 +97,7 @@ public class MainView {
 		comboBox.addItem(new Operation(RenameOperations.Count));
 		comboBox.addItem(new Operation(RenameOperations.Prefix));
 		comboBox.addItem(new Operation(RenameOperations.Suffix));
+		comboBox.addItem(new Operation(RenameOperations.SearchAndReplace));
 		
 
 		return comboBox;

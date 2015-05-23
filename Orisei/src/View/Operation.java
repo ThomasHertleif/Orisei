@@ -29,6 +29,8 @@ public class Operation {
 		case Suffix:
 			suffixView(panel);
 			break;
+		case SearchAndReplace:
+
 		default:
 			break;
 		}
@@ -40,14 +42,15 @@ public class Operation {
 		return type.toString();
 	}
 
+	// TODO: Remove BorderLayout and use MigLayout... EVERYWHERE!
 	private void countView(JPanel panel) {
 		panel.setLayout(new MigLayout("", "[grow][grow]", "[]"));
-		
+
 		JPanel pStart = new JPanel(new BorderLayout());
-		
+
 		JLabel lblStart = new JLabel("Start", JLabel.LEFT);
 		pStart.add(lblStart, BorderLayout.NORTH);
-		
+
 		JTextField textField = new JTextField("1");
 		pStart.add(textField, BorderLayout.CENTER);
 		textField.setColumns(10);
@@ -62,7 +65,7 @@ public class Operation {
 		panel.add(textField, "cell 0 0,growx");
 		textField.setColumns(10);
 	}
-	
+
 	private void suffixView(JPanel panel) {
 		panel.setLayout(new MigLayout("", "[grow][grow]", "[]"));
 
@@ -70,6 +73,14 @@ public class Operation {
 		panel.add(textField, "cell 0 0,growx");
 		textField.setColumns(10);
 	}
-	
-	
+
+	private void SearchAndReplaceView(JPanel panel) {
+		panel.setLayout(new MigLayout("", "[grow][grow]", "[]"));
+
+		JTextField txtSearch = new JTextField();
+		panel.add(txtSearch, "cell 0 0,growx");
+		txtSearch.setColumns(10);
+
+	}
+
 }
