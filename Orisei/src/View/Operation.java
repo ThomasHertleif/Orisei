@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JFormattedTextField;
 
 import net.miginfocom.swing.MigLayout;
 import Model.RenameOperations;
@@ -30,7 +31,7 @@ public class Operation {
 			suffixView(panel);
 			break;
 		case SearchAndReplace:
-
+			searchAndReplaceView(panel);
 		default:
 			break;
 		}
@@ -44,42 +45,54 @@ public class Operation {
 
 	// TODO: Remove BorderLayout and use MigLayout... EVERYWHERE!
 	private void countView(JPanel panel) {
-		panel.setLayout(new MigLayout("", "[grow][grow]", "[]"));
-
-		JPanel pStart = new JPanel(new BorderLayout());
+		panel.setLayout(new MigLayout("", "[grow]", "[][]"));
 
 		JLabel lblStart = new JLabel("Start", JLabel.LEFT);
-		pStart.add(lblStart, BorderLayout.NORTH);
+		panel.add(lblStart, "cell 0 0");
 
-		JTextField textField = new JTextField("1");
-		pStart.add(textField, BorderLayout.CENTER);
+		JFormattedTextField textField = new JFormattedTextField("1");
+		panel.add(textField, "cell 0 1,growx");
 		textField.setColumns(10);
-
-		panel.add(pStart, "cell 0 0,growx");
 	}
 
 	private void prefixView(JPanel panel) {
-		panel.setLayout(new MigLayout("", "[grow][grow]", "[]"));
+		panel.setLayout(new MigLayout("", "[grow]", "[][]"));
 
+		JLabel lblDesc = new JLabel("Präfix");
+		panel.add(lblDesc, "cell 0 0");
+		
 		JTextField textField = new JTextField();
-		panel.add(textField, "cell 0 0,growx");
+		panel.add(textField, "cell 0 1,growx");
 		textField.setColumns(10);
 	}
 
 	private void suffixView(JPanel panel) {
-		panel.setLayout(new MigLayout("", "[grow][grow]", "[]"));
+		panel.setLayout(new MigLayout("", "[grow]", "[]"));
 
+		JLabel lblDesc = new JLabel("Suffix");
+		panel.add(lblDesc, "cell 0 0");
+		
 		JTextField textField = new JTextField();
-		panel.add(textField, "cell 0 0,growx");
+		panel.add(textField, "cell 0 1,growx");
 		textField.setColumns(10);
 	}
 
-	private void SearchAndReplaceView(JPanel panel) {
-		panel.setLayout(new MigLayout("", "[grow][grow]", "[]"));
+	private void searchAndReplaceView(JPanel panel) {
+		panel.setLayout(new MigLayout("", "[grow][grow]", "[][]"));
+
+		JLabel lblSearch = new JLabel("Suchen", JLabel.LEFT);
+		panel.add(lblSearch, "cell 0 0");
 
 		JTextField txtSearch = new JTextField();
-		panel.add(txtSearch, "cell 0 0,growx");
+		panel.add(txtSearch, "cell 0 1,growx");
 		txtSearch.setColumns(10);
+
+		JLabel lblReplace = new JLabel("Ersetzen", JLabel.LEFT);
+		panel.add(lblReplace, "cell 1 0");
+
+		JTextField txtReplace = new JTextField();
+		panel.add(txtReplace, "cell 1 1,growx");
+		txtReplace.setColumns(10);
 
 	}
 
