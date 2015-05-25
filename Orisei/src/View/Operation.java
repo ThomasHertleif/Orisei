@@ -43,7 +43,6 @@ public class Operation {
 		return type.toString();
 	}
 
-	// TODO: Remove BorderLayout and use MigLayout... EVERYWHERE!
 	private void countView(JPanel panel) {
 		panel.setLayout(new MigLayout("", "[grow]", "[][]"));
 
@@ -60,7 +59,7 @@ public class Operation {
 
 		JLabel lblDesc = new JLabel("Präfix");
 		panel.add(lblDesc, "cell 0 0");
-		
+
 		JTextField textField = new JTextField();
 		panel.add(textField, "cell 0 1,growx");
 		textField.setColumns(10);
@@ -71,7 +70,7 @@ public class Operation {
 
 		JLabel lblDesc = new JLabel("Suffix");
 		panel.add(lblDesc, "cell 0 0");
-		
+
 		JTextField textField = new JTextField();
 		panel.add(textField, "cell 0 1,growx");
 		textField.setColumns(10);
