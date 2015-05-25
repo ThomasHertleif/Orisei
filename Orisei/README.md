@@ -1,7 +1,10 @@
 # Orisei
- Von Thomas Hertleif
 
- Orisei ist ein Porgramm welches mehere Dateien in bestimmten Mustern umbennen kann.
+("Orisei"/"ορίσει", griechisch für "ernannt")
+
+Von Thomas Hertleif
+
+Orisei ist ein Porgramm welches mehere Dateien in bestimmten Mustern umbennen kann.
 
 ## Minimale Funktionen
 
