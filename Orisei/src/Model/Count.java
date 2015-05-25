@@ -1,10 +1,10 @@
 package Model;
 
-public class Count implements RenameOperation{
+public class Count implements RenameOperation {
 
-	private int counter;
-	private Position position;
-	
+	private int			counter;
+	private Position	position;
+
 	public Count(int counter) {
 		this.counter = counter;
 		this.position = Position.Before;
@@ -14,7 +14,7 @@ public class Count implements RenameOperation{
 		this.counter = counter;
 		this.position = position;
 	}
-	
+
 	public int getCounter() {
 		return counter;
 	}
@@ -26,18 +26,18 @@ public class Count implements RenameOperation{
 	@Override
 	public String makeNewName(String oldName) {
 		String newName = "";
-		
+
 		switch (this.position) {
-		case Before:
-			newName = this.counter + oldName;
-			break;
-		case After:
-			newName = oldName + this.counter;
-			break;
-		default:
-			break;
+			case Before:
+				newName = this.counter + oldName;
+				break;
+			case After:
+				newName = oldName + this.counter;
+				break;
+			default:
+				break;
 		}
-		
+
 		this.counter += 1;
 		return newName;
 	}

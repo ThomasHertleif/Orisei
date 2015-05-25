@@ -1,7 +1,5 @@
 package View;
 
-import java.awt.BorderLayout;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -11,7 +9,7 @@ import net.miginfocom.swing.MigLayout;
 import Model.RenameOperations;
 
 public class Operation {
-	private RenameOperations type;
+	private RenameOperations	type;
 
 	public Operation(RenameOperations type) {
 		this.type = type;
@@ -21,19 +19,19 @@ public class Operation {
 		panel.removeAll();
 
 		switch (this.type) {
-		case Count:
-			countView(panel);
-			break;
-		case Prefix:
-			prefixView(panel);
-			break;
-		case Suffix:
-			suffixView(panel);
-			break;
-		case SearchAndReplace:
-			searchAndReplaceView(panel);
-		default:
-			break;
+			case Count:
+				countView(panel);
+				break;
+			case Prefix:
+				prefixView(panel);
+				break;
+			case Suffix:
+				suffixView(panel);
+				break;
+			case SearchAndReplace:
+				searchAndReplaceView(panel);
+			default:
+				break;
 		}
 		panel.updateUI();
 	}
@@ -57,7 +55,7 @@ public class Operation {
 	private void prefixView(JPanel panel) {
 		panel.setLayout(new MigLayout("", "[grow]", "[][]"));
 
-		JLabel lblDesc = new JLabel("Präfix");
+		JLabel lblDesc = new JLabel("Prï¿½fix");
 		panel.add(lblDesc, "cell 0 0");
 
 		JTextField textField = new JTextField();

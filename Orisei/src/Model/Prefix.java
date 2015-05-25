@@ -1,13 +1,13 @@
 package Model;
 
-public class Prefix implements RenameOperation{
+public class Prefix implements RenameOperation {
 
-	private String prefix;
-	
+	private String	prefix;
+
 	public Prefix(String prefix) {
 		this.prefix = prefix;
 	}
-	
+
 	public String getPrefix() {
 		return prefix;
 	}
@@ -15,10 +15,9 @@ public class Prefix implements RenameOperation{
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
 	}
-	
-	
+
 	/**
-	 * Generate new file name by prefixing the prefix to the old name. 
+	 * Generate new file name by prefixing the prefix to the old name.
 	 */
 	@Override
 	public String makeNewName(String oldName) {

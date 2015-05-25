@@ -1,6 +1,5 @@
 package Model;
 
 public enum Position {
-	Before,
-	After,
+	Before, After,
 }

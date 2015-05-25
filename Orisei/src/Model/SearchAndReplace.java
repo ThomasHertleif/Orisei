@@ -2,9 +2,9 @@ package Model;
 
 public class SearchAndReplace implements RenameOperation {
 
-	private String pattern;
-	private String replacement;
-	
+	private String	pattern;
+	private String	replacement;
+
 	public String getPattern() {
 		return pattern;
 	}
