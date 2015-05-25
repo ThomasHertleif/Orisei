@@ -17,8 +17,6 @@ import javax.swing.JPanel;
 
 import Model.RenameOperations;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.JMenu;
@@ -26,16 +24,17 @@ import javax.swing.JMenuItem;
 
 public class MainView {
 
-	private JFrame frmOrisei;
-	private JButton btnNewButton;
-	private JTable table;
-	private JComboBox<Operation> cBoxOperation;
-	private JPanel panel;
-	private JMenu mnFile;
-	private JMenuItem mnSelectFiles;
-	private JMenuItem mnSelectFolder;
-	private JMenu mnHelp;
-	private JMenuItem mntmAbout;
+	private JFrame					frmOrisei;
+	private JButton					btnNewButton;
+	private JTable					table;
+	private DefaultTableModel		tableData;
+	private JComboBox<Operation>	cBoxOperation;
+	private JPanel					panel;
+	private JMenu					mnFile;
+	private JMenuItem				mnSelectFiles;
+	private JMenuItem				mnSelectFolder;
+	private JMenu					mnHelp;
+	private JMenuItem				mntmAbout;
 
 	/**
 	 * Launch the application.
@@ -75,42 +74,58 @@ public class MainView {
 		mnFile = new JMenu("Datei");
 		menuBar.add(mnFile);
 
-		mnSelectFiles = new JMenuItem("Dateien ausw�hlen");
+		mnSelectFiles = new JMenuItem("Dateien auswählen");
 		mnFile.add(mnSelectFiles);
 
-		mnSelectFiles.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser fileSelect = new JFileChooser();
-				fileSelect.setMultiSelectionEnabled(true);
-				fileSelect.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		mnSelectFiles.addActionListener((e) -> {
+			JFileChooser fileSelect = new JFileChooser();
+			fileSelect.setMultiSelectionEnabled(true);
+			fileSelect.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-				int returnVal = fileSelect.showOpenDialog(null);
+			int returnVal = fileSelect.showOpenDialog(null);
 
-				if (returnVal != JFileChooser.APPROVE_OPTION) {
-					return;
-				}
-
-				File[] files = fileSelect.getSelectedFiles();
-				System.out.printf("selected %d files\n", files.length);
-				for (File file : files) {
-					System.out.printf("uhh shiny! %s\n", file.getName()
-							.toString());
-				}
+			if (returnVal != JFileChooser.APPROVE_OPTION) {
+				return;
 			}
+
+			File[] files = fileSelect.getSelectedFiles();
+			System.out.printf("selected %d files\n", files.length);
+
+			for (File file : files) {
+				tableData.addRow(new Object[] { file.getName(), "" });
+			}
+
+			table.updateUI();
 		});
 
-		mnSelectFolder = new JMenuItem("Ordner \u00F6ffnen");
+		mnSelectFolder = new JMenuItem("Ordner öffnen");
+		mnSelectFolder.addActionListener((e) -> {
+			JFileChooser folderSelect = new JFileChooser();
+			folderSelect.setMultiSelectionEnabled(false);
+			folderSelect.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+			int returnVal = folderSelect.showOpenDialog(null);
+
+			if (returnVal != JFileChooser.APPROVE_OPTION) {
+				return;
+			}
+
+			File[] files = folderSelect.getSelectedFiles();
+			System.out.printf("selected %d files\n", files.length);
+			for (File file : files) {
+				System.out.printf("uhh shiny! %s\n", file.getName().toString());
+			}
+		});
 		mnFile.add(mnSelectFolder);
+		mnSelectFolder.setEnabled(false); // TODO: Enable folder select again.
 
 		mnHelp = new JMenu("Hilfe");
 		menuBar.add(mnHelp);
 
-		mntmAbout = new JMenuItem("\u00DCber");
+		mntmAbout = new JMenuItem("über");
 		mnHelp.add(mntmAbout);
 
-		frmOrisei.getContentPane().setLayout(
-				new MigLayout("", "[grow][grow][]", "[center][grow]"));
+		frmOrisei.getContentPane().setLayout(new MigLayout("", "[][grow][]", "[center][grow]"));
 
 		cBoxOperation = this.makeOperationSelect();
 		frmOrisei.getContentPane().add(cBoxOperation, "cell 0 0,growx");
@@ -121,25 +136,23 @@ public class MainView {
 		btnNewButton = new JButton("Umbenennen");
 		frmOrisei.getContentPane().add(btnNewButton, "cell 2 0");
 
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-				new Object[][] { { "Test", "tseT" } }, new String[] {
-						"Originame", "Neuer Name" }));
-		frmOrisei.getContentPane().add(new JScrollPane(table),
-				"cell 0 1 3 1,grow");
-
-		cBoxOperation.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Operation selectedOperation = (Operation) cBoxOperation
-						.getSelectedItem();
-				selectedOperation.updateOperationInputs(panel);
-			}
+		cBoxOperation.addActionListener((e) -> {
+			Operation selectedOperation = (Operation) cBoxOperation.getSelectedItem();
+			selectedOperation.updateOperationInputs(panel);
 		});
 
+		table = new JTable();
+
+		tableData = new DefaultTableModel(0, 0);
+		tableData.setColumnIdentifiers(new String[] { "Originame", "Neuer Name" });
+
+		table.setColumnSelectionAllowed(true);
+		table.setModel(tableData);
+
+		frmOrisei.getContentPane().add(new JScrollPane(table), "cell 0 1 3 1,grow");
+
 		// Render Init Option
-		((Operation) cBoxOperation.getSelectedItem())
-				.updateOperationInputs(panel);
+		((Operation) cBoxOperation.getSelectedItem()).updateOperationInputs(panel);
 	}
 
 	private JComboBox<Operation> makeOperationSelect() {
