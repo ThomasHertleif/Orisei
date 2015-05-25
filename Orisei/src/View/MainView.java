@@ -16,6 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
 import Model.RenameOperations;
+import Model.FileTable;
 
 import java.io.File;
 
@@ -143,7 +144,7 @@ public class MainView {
 
 		table = new JTable();
 
-		tableData = new DefaultTableModel(0, 0);
+		tableData = new FileTable(0, 0);
 		tableData.setColumnIdentifiers(new String[] { "Originame", "Neuer Name" });
 
 		table.setColumnSelectionAllowed(true);
