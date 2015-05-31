@@ -91,12 +91,9 @@ public class MainView {
 			}
 
 			File[] files = fileSelect.getSelectedFiles();
-			System.out.printf("selected %d files\n", files.length);
 
 			fileList.replaceFiles(files);
 			fileList.triggerChange();
-
-			
 		});
 
 		mnSelectFolder = new JMenuItem("Ordner öffnen");
@@ -111,12 +108,9 @@ public class MainView {
 				return;
 			}
 
-			File[] files = folderSelect.getSelectedFiles();
-			System.out.printf("selected %d files\n", files.length);
-			for (File file : files) {
-				System.out.printf("uhh shiny! %s\n", file.getName().toString());
-			}
-		});
+			// FIXME: Handle directory loading.
+			});
+
 		mnFile.add(mnSelectFolder);
 		mnSelectFolder.setEnabled(false); // TODO: Enable folder select again.
 
@@ -160,7 +154,8 @@ public class MainView {
 		frmOrisei.getContentPane().add(new JScrollPane(table), "cell 0 1 3 1,grow");
 
 		// Render initial option
-		// TODO: Reactor the following to note just repeat the select box event listener code
+		// TODO: Reactor the following to note just repeat the select box event
+		// listener code
 		Operation selectedOperation = (Operation) cBoxOperation.getSelectedItem();
 		selectedOperation.updateUI(panel);
 		fileList.setRenamer(selectedOperation.getRenamer());
