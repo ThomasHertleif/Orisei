@@ -4,6 +4,11 @@ public class SearchAndReplace implements RenameOperation {
 
 	private String	pattern;
 	private String	replacement;
+	
+	public SearchAndReplace(String pattern, String replacement) {
+		this.pattern = pattern;
+		this.replacement = replacement;
+	}
 
 	public String getPattern() {
 		return pattern;

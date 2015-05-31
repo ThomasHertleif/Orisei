@@ -15,7 +15,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import Model.RenameOperations;
 import Model.FileTable;
 
 import java.io.File;
@@ -139,7 +138,7 @@ public class MainView {
 
 		cBoxOperation.addActionListener((e) -> {
 			Operation selectedOperation = (Operation) cBoxOperation.getSelectedItem();
-			selectedOperation.updateOperationInputs(panel);
+			selectedOperation.updateUI(panel);
 		});
 
 		table = new JTable();
@@ -152,16 +151,16 @@ public class MainView {
 
 		frmOrisei.getContentPane().add(new JScrollPane(table), "cell 0 1 3 1,grow");
 
-		// Render Init Option
-		((Operation) cBoxOperation.getSelectedItem()).updateOperationInputs(panel);
+		// Render initial option
+		((Operation) cBoxOperation.getSelectedItem()).updateUI(panel);
 	}
 
 	private JComboBox<Operation> makeOperationSelect() {
 		JComboBox<Operation> comboBox = new JComboBox<Operation>();
-		comboBox.addItem(new Operation(RenameOperations.Count));
-		comboBox.addItem(new Operation(RenameOperations.Prefix));
-		comboBox.addItem(new Operation(RenameOperations.Suffix));
-		comboBox.addItem(new Operation(RenameOperations.SearchAndReplace));
+		comboBox.addItem(new CountView());
+		comboBox.addItem(new PrefixView());
+		comboBox.addItem(new SuffixView());
+		comboBox.addItem(new SearchAndReplaceView());
 
 		return comboBox;
 	}
