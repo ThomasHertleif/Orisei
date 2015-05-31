@@ -1,10 +1,12 @@
 package View;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JMenuBar;
@@ -117,8 +119,13 @@ public class MainView {
 		mnHelp = new JMenu("Hilfe");
 		menuBar.add(mnHelp);
 
-		mntmAbout = new JMenuItem("über");
+		mntmAbout = new JMenuItem("Über");
 		mnHelp.add(mntmAbout);
+		
+		mntmAbout.addActionListener((e) -> {
+			Component infoFrame = null;
+			JOptionPane.showMessageDialog(infoFrame, "Orisei v0.1.0 von Thomas Hertleif", "Über", JOptionPane.PLAIN_MESSAGE);
+		});
 
 		frmOrisei.getContentPane().setLayout(new MigLayout("", "[][grow][]", "[center][grow]"));
 
