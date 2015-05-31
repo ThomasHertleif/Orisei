@@ -1,7 +1,9 @@
 package Controller;
 
 import java.io.File;
-import java.util.HashMap;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.TreeMap;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -15,12 +17,12 @@ public class FileList {
 	private File[]					files;
 	private RenameOperation			renamer;
 	private JTable					table;
-	private HashMap<File, String>	currentState;
+	private TreeMap<File, String>	currentState;
 
 	public FileList(DefaultTableModel target, JTable table) {
 		this.target = target;
 		this.table = table;
-		this.currentState = new HashMap<File, String>();
+		this.currentState = new TreeMap<File, String>();
 	}
 
 	private void updateState() {
@@ -80,15 +82,25 @@ public class FileList {
 	public void renameRealFiles() {
 		for (File file : this.currentState.keySet()) {
 			String newName = this.currentState.get(file);
-			// target.addRow(new Object[] { file.getName(), newName });
+			
+			File renamedFile = new File(file.getParent(), newName);
+			try {
+				Files.move(file.toPath(), renamedFile.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
+		// clear file listing after renaming (file names are gone)
+		this.replaceFiles(null);
 	}
 
-	public HashMap<File, String> getCurrentState() {
+	public TreeMap<File, String> getCurrentState() {
 		return currentState;
 	}
 
-	public void setCurrentState(HashMap<File, String> currentState) {
+	public void setCurrentState(TreeMap<File, String> currentState) {
 		this.currentState = currentState;
 	}
 

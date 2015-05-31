@@ -26,7 +26,7 @@ import javax.swing.JMenuItem;
 public class MainView {
 
 	private JFrame					frmOrisei;
-	private JButton					btnNewButton;
+	private JButton					btnRename;
 	private JTable					table;
 	private DefaultTableModel		tableData;
 	private JComboBox<Operation>	cBoxOperation;
@@ -128,8 +128,12 @@ public class MainView {
 		panel = new JPanel();
 		frmOrisei.getContentPane().add(panel, "cell 1 0,grow");
 
-		btnNewButton = new JButton("Umbenennen");
-		frmOrisei.getContentPane().add(btnNewButton, "cell 2 0");
+		btnRename = new JButton("Umbenennen");
+		frmOrisei.getContentPane().add(btnRename, "cell 2 0");
+		
+		btnRename.addActionListener((e) -> {
+			fileList.renameRealFiles();
+		});
 
 		cBoxOperation.addActionListener((e) -> {
 			Operation selectedOperation = (Operation) cBoxOperation.getSelectedItem();
