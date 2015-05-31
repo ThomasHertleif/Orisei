@@ -8,7 +8,6 @@ import Model.Count;
 import Model.Position;
 
 public class CountTest {
-
 	@Test
 	public void defaultCase() {
 		Count counter = new Count(42);

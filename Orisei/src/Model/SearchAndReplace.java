@@ -27,6 +27,9 @@ public class SearchAndReplace implements RenameOperation {
 	 */
 	@Override
 	public String makeNewName(String oldName) {
+		if (oldName == null) {
+			return null;
+		}
 		return oldName.replaceFirst(this.pattern, this.replacement);
 	}
 
