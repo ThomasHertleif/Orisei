@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+import Controller.FileList;
 import Model.FileTable;
 
 import java.io.File;
@@ -35,6 +36,7 @@ public class MainView {
 	private JMenuItem				mnSelectFolder;
 	private JMenu					mnHelp;
 	private JMenuItem				mntmAbout;
+	private FileList				fileList;
 
 	/**
 	 * Launch the application.
@@ -91,11 +93,10 @@ public class MainView {
 			File[] files = fileSelect.getSelectedFiles();
 			System.out.printf("selected %d files\n", files.length);
 
-			for (File file : files) {
-				tableData.addRow(new Object[] { file.getName(), "" });
-			}
+			fileList.replaceFiles(files);
+			fileList.triggerChange();
 
-			table.updateUI();
+			
 		});
 
 		mnSelectFolder = new JMenuItem("Ordner öffnen");
@@ -139,6 +140,11 @@ public class MainView {
 		cBoxOperation.addActionListener((e) -> {
 			Operation selectedOperation = (Operation) cBoxOperation.getSelectedItem();
 			selectedOperation.updateUI(panel);
+			fileList.setRenamer(selectedOperation.getRenamer());
+			selectedOperation.setChangelistener((l) -> {
+				fileList.setRenamer(selectedOperation.getRenamer());
+				fileList.triggerChange();
+			});
 		});
 
 		table = new JTable();
@@ -146,13 +152,22 @@ public class MainView {
 		tableData = new FileTable(0, 0);
 		tableData.setColumnIdentifiers(new String[] { "Originame", "Neuer Name" });
 
+		fileList = new FileList(tableData, table);
+
 		table.setColumnSelectionAllowed(true);
 		table.setModel(tableData);
 
 		frmOrisei.getContentPane().add(new JScrollPane(table), "cell 0 1 3 1,grow");
 
 		// Render initial option
-		((Operation) cBoxOperation.getSelectedItem()).updateUI(panel);
+		// TODO: Reactor the following to note just repeat the select box event listener code
+		Operation selectedOperation = (Operation) cBoxOperation.getSelectedItem();
+		selectedOperation.updateUI(panel);
+		fileList.setRenamer(selectedOperation.getRenamer());
+		selectedOperation.setChangelistener((l) -> {
+			fileList.setRenamer(selectedOperation.getRenamer());
+			fileList.triggerChange();
+		});
 	}
 
 	private JComboBox<Operation> makeOperationSelect() {

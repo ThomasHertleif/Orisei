@@ -9,12 +9,7 @@ public class Main {
 	static SearchAndReplace	SearchAndReplace;
 
 	public static void main(String[] args) {
-
 		MainView = new MainView();
-		Prefix = new Prefix();
-		Suffix = new Suffix();
-		SearchAndReplace = new SearchAndReplace();
-
 	}
 
 }

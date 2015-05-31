@@ -2,15 +2,18 @@ package Model;
 
 public class Count implements RenameOperation {
 
+	private int			start;
 	private int			counter;
 	private Position	position;
 
 	public Count(int counter) {
+		this.start = counter;
 		this.counter = counter;
 		this.position = Position.Before;
 	}
 
 	public Count(int counter, Position position) {
+		this.start = counter;
 		this.counter = counter;
 		this.position = position;
 	}
@@ -21,6 +24,10 @@ public class Count implements RenameOperation {
 
 	public void setCounter(int counter) {
 		this.counter = counter;
+	}
+	
+	public void resetCounter() {
+		this.counter = this.start;
 	}
 
 	@Override
