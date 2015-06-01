@@ -3,6 +3,9 @@ package View;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -11,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JMenuBar;
+import javax.swing.TransferHandler;
+import javax.swing.UIManager;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -22,9 +27,12 @@ import Controller.FileList;
 import Model.FileTable;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
+import java.util.*;
 
 public class MainView {
 
@@ -68,6 +76,12 @@ public class MainView {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+
 		frmOrisei = new JFrame();
 		frmOrisei.setTitle("Orisei");
 		frmOrisei.setBounds(100, 100, 450, 300);
@@ -158,6 +172,54 @@ public class MainView {
 		});
 
 		table = new JTable();
+		TransferHandler dropHandler = new TransferHandler() {
+			private static final long	serialVersionUID	= -7217612348754670081L;
+
+			@Override
+			public boolean canImport(TransferHandler.TransferSupport info) {
+				// we only import FileList
+				if (!info.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+					return false;
+				}
+				return true;
+			}
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public boolean importData(TransferHandler.TransferSupport info) {
+				if (!info.isDrop()) {
+					return false;
+				}
+
+				// Check for FileList flavor
+				if (!info.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+					System.out.println("List doesn't accept a drop of this type.");
+					return false;
+				}
+
+				// Get the fileList that is being dropped.
+				Transferable t = info.getTransferable();
+				List<File> dropppedFiles;
+				try {
+					dropppedFiles = (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
+				} catch (UnsupportedFlavorException e1) {
+					System.out.println("sadly, this flavor is not chocolate.");
+					e1.printStackTrace();
+					return false;
+				} catch (IOException e1) {
+					System.out.println("io system just went to hell.");
+					e1.printStackTrace();
+					return false;
+				}
+
+				fileList.replaceFiles((File[]) dropppedFiles.toArray());
+				fileList.triggerChange();
+
+				return false;
+			}
+		};
+
+		frmOrisei.setTransferHandler(dropHandler);
 
 		tableData = new FileTable(0, 0);
 		tableData.setColumnIdentifiers(new String[] { "Originame", "Neuer Name" });
