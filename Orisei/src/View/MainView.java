@@ -110,21 +110,24 @@ public class MainView {
 				return;
 			}
 
-			// FIXME: Handle directory loading.
-			});
+			File[] files = folderSelect.getSelectedFile().listFiles();
+			fileList.replaceFiles(files);
+			fileList.triggerChange();
+
+		});
 
 		mnFile.add(mnSelectFolder);
-		mnSelectFolder.setEnabled(false); // TODO: Enable folder select again.
 
 		mnHelp = new JMenu("Hilfe");
 		menuBar.add(mnHelp);
 
 		mntmAbout = new JMenuItem("Über");
 		mnHelp.add(mntmAbout);
-		
+
 		mntmAbout.addActionListener((e) -> {
 			Component infoFrame = null;
-			JOptionPane.showMessageDialog(infoFrame, "Orisei v0.1.0 von Thomas Hertleif", "Über", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(infoFrame, "Orisei v0.1.0 von Thomas Hertleif", "Über",
+				JOptionPane.PLAIN_MESSAGE);
 		});
 
 		frmOrisei.getContentPane().setLayout(new MigLayout("", "[][grow][]", "[center][grow]"));
@@ -137,7 +140,7 @@ public class MainView {
 
 		btnRename = new JButton("Umbenennen");
 		frmOrisei.getContentPane().add(btnRename, "cell 2 0");
-		
+
 		btnRename.addActionListener((e) -> {
 			fileList.renameRealFiles();
 		});
