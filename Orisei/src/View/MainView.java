@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -14,7 +15,6 @@ import javax.swing.JTable;
 import javax.swing.JMenuBar;
 import javax.swing.TransferHandler;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -26,6 +26,7 @@ import Controller.FileList;
 import Model.FileTable;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -167,8 +168,9 @@ public class MainView {
 		});
 
 		table = new JTable();
-		// TODO: Make D&D happening
 		TransferHandler dropHandler = new TransferHandler() {
+			private static final long	serialVersionUID	= -7217612348754670081L;
+
 			@Override
 			public boolean canImport(TransferHandler.TransferSupport info) {
 				// we only import FileList
@@ -178,6 +180,7 @@ public class MainView {
 				return true;
 			}
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public boolean importData(TransferHandler.TransferSupport info) {
 				if (!info.isDrop()) {
@@ -186,23 +189,29 @@ public class MainView {
 
 				// Check for FileList flavor
 				if (!info.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
-					displayDropLocation("List doesn't accept a drop of this type.");
+					System.out.println("List doesn't accept a drop of this type.");
 					return false;
 				}
 
 				// Get the fileList that is being dropped.
 				Transferable t = info.getTransferable();
-				List<File> data;
+				List<File> dropppedFiles;
 				try {
-					fileList.triggerChange();
-				} catch (Exception e) {
+					dropppedFiles = (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
+				} catch (UnsupportedFlavorException e1) {
+					System.out.println("sadly, this flavor is not chocolate.");
+					e1.printStackTrace();
+					return false;
+				} catch (IOException e1) {
+					System.out.println("io system just went to hell.");
+					e1.printStackTrace();
 					return false;
 				}
-				return false;
-			}
 
-			private void displayDropLocation(String string) {
-				System.out.println(string);
+				fileList.replaceFiles((File[]) dropppedFiles.toArray());
+				fileList.triggerChange();
+
+				return false;
 			}
 		};
 
