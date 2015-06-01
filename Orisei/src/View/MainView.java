@@ -142,7 +142,7 @@ public class MainView {
 
 		mntmAbout.addActionListener((e) -> {
 			Component infoFrame = null;
-			JOptionPane.showMessageDialog(infoFrame, "Orisei v0.1.0 von Thomas Hertleif", "Über",
+			JOptionPane.showMessageDialog(infoFrame, "Orisei v0.2.0 von Thomas Hertleif", "Über",
 				JOptionPane.PLAIN_MESSAGE);
 		});
 
