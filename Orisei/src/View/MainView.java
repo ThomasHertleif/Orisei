@@ -2,6 +2,8 @@ package View;
 
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -10,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JMenuBar;
+import javax.swing.TransferHandler;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -26,6 +29,8 @@ import java.io.File;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
+import java.util.*;
 
 public class MainView {
 
@@ -138,10 +143,11 @@ public class MainView {
 
 		mntmAbout = new JMenuItem("Über");
 		mnHelp.add(mntmAbout);
-		
+
 		mntmAbout.addActionListener((e) -> {
 			Component infoFrame = null;
-			JOptionPane.showMessageDialog(infoFrame, "Orisei v0.1.0 von Thomas Hertleif", "Über", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(infoFrame, "Orisei v0.1.0 von Thomas Hertleif", "Über",
+				JOptionPane.PLAIN_MESSAGE);
 		});
 
 		frmOrisei.getContentPane().setLayout(new MigLayout("", "[][grow][]", "[center][grow]"));
@@ -154,7 +160,7 @@ public class MainView {
 
 		btnRename = new JButton("Umbenennen");
 		frmOrisei.getContentPane().add(btnRename, "cell 2 0");
-		
+
 		btnRename.addActionListener((e) -> {
 			fileList.renameRealFiles();
 		});
@@ -170,6 +176,46 @@ public class MainView {
 		});
 
 		table = new JTable();
+		// TODO: Make D&D happening
+		TransferHandler dropHandler = new TransferHandler() {
+			@Override
+			public boolean canImport(TransferHandler.TransferSupport info) {
+				// we only import FileList
+				if (!info.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+					return false;
+				}
+				return true;
+			}
+
+			@Override
+			public boolean importData(TransferHandler.TransferSupport info) {
+				if (!info.isDrop()) {
+					return false;
+				}
+
+				// Check for FileList flavor
+				if (!info.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+					displayDropLocation("List doesn't accept a drop of this type.");
+					return false;
+				}
+
+				// Get the fileList that is being dropped.
+				Transferable t = info.getTransferable();
+				List<File> data;
+				try {
+					fileList.triggerChange();
+				} catch (Exception e) {
+					return false;
+				}
+				return false;
+			}
+
+			private void displayDropLocation(String string) {
+				System.out.println(string);
+			}
+		};
+
+		frmOrisei.setTransferHandler(dropHandler);
 
 		tableData = new FileTable(0, 0);
 		tableData.setColumnIdentifiers(new String[] { "Originame", "Neuer Name" });
@@ -178,7 +224,7 @@ public class MainView {
 
 		table.setColumnSelectionAllowed(true);
 		table.setModel(tableData);
-		
+
 		frmOrisei.getContentPane().add(new JScrollPane(table), "cell 0 1 3 1,grow");
 
 		// Render initial option
