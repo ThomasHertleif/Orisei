@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JMenuBar;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -67,6 +69,21 @@ public class MainView {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InstantiationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		frmOrisei = new JFrame();
 		frmOrisei.setTitle("Orisei");
 		frmOrisei.setBounds(100, 100, 450, 300);
@@ -161,7 +178,7 @@ public class MainView {
 
 		table.setColumnSelectionAllowed(true);
 		table.setModel(tableData);
-
+		
 		frmOrisei.getContentPane().add(new JScrollPane(table), "cell 0 1 3 1,grow");
 
 		// Render initial option
