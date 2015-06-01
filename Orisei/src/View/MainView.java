@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFileChooser;
@@ -70,6 +71,7 @@ public class MainView {
 		frmOrisei = new JFrame();
 		frmOrisei.setTitle("Orisei");
 		frmOrisei.setBounds(100, 100, 450, 300);
+		frmOrisei.setMinimumSize(new Dimension(400, 200));
 		frmOrisei.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JMenuBar menuBar = new JMenuBar();
@@ -130,7 +132,7 @@ public class MainView {
 				JOptionPane.PLAIN_MESSAGE);
 		});
 
-		frmOrisei.getContentPane().setLayout(new MigLayout("", "[][grow][]", "[center][grow]"));
+		frmOrisei.getContentPane().setLayout(new MigLayout("", "[][grow][]", "[center][][grow]"));
 
 		cBoxOperation = this.makeOperationSelect();
 		frmOrisei.getContentPane().add(cBoxOperation, "cell 0 0,growx");
@@ -165,7 +167,7 @@ public class MainView {
 		table.setColumnSelectionAllowed(true);
 		table.setModel(tableData);
 
-		frmOrisei.getContentPane().add(new JScrollPane(table), "cell 0 1 3 1,grow");
+		frmOrisei.getContentPane().add(new JScrollPane(table), "cell 0 2 3 1,grow");
 
 		// Render initial option
 		// TODO: Reactor the following to note just repeat the select box event

@@ -13,8 +13,8 @@ import Model.RenameOperation;
 import Model.Suffix;
 
 public class SuffixView implements Operation {
-	private JLabel		lblDesc;
-	private JTextField	txtSuffix;
+	private JLabel			lblDesc;
+	private JTextField		txtSuffix;
 	private ActionListener	onChange;
 
 	public SuffixView() {
@@ -72,7 +72,7 @@ public class SuffixView implements Operation {
 	@Override
 	public void setChangelistener(ActionListener l) {
 		this.onChange = l;
-		
+
 	}
 
 }
