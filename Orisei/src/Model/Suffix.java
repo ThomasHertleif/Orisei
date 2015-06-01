@@ -21,7 +21,7 @@ public class Suffix implements RenameOperation {
 	 */
 	@Override
 	public String makeNewName(String oldName) {
-		return oldName + suffix;
+		return oldName.substring(0,oldName.indexOf(".")) + suffix + oldName.substring(oldName.indexOf("."));
 	}
 
 }
