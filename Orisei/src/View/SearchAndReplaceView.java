@@ -95,7 +95,7 @@ public class SearchAndReplaceView implements Operation {
 	public RenameOperation getRenamer() {
 		return new SearchAndReplace(txtSearch.getText(), txtReplace.getText());
 	}
-	
+
 	@Override
 	public void setChangelistener(ActionListener l) {
 		this.onChange = l;
@@ -103,8 +103,12 @@ public class SearchAndReplaceView implements Operation {
 
 	@Override
 	public void updateOptionPanel(JPanel optionPanel) {
-		// TODO Auto-generated method stub
+		optionPanel.removeAll();
+
+		optionPanel.setLayout(new MigLayout(""));
 		
+		optionPanel.updateUI();
+
 	}
 
 }

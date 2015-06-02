@@ -83,9 +83,14 @@ public class SuffixView implements Operation {
 		optionPanel.setLayout(new MigLayout(""));
 		chboxIgnorEx = new JCheckBox("Datei erweiterung beachten");
 		optionPanel.add(chboxIgnorEx, " cell 0 0");
+		chboxIgnorEx.setSelected(true);
 
 		optionPanel.updateUI();
 
+	}
+	
+	public boolean getChBoxIgnorExValue() {
+		return chboxIgnorEx.isSelected();
 	}
 
 }

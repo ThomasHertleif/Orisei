@@ -21,6 +21,7 @@ public class Suffix implements RenameOperation {
 	 */
 	@Override
 	public String makeNewName(String oldName) {
+
 		if (oldName == null) {
 			return null;
 		}

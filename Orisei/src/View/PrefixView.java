@@ -37,7 +37,6 @@ public class PrefixView implements Operation {
 		panel.add(txtPrefix, "cell 0 1,growx");
 		txtPrefix.setColumns(10);
 
-
 		txtPrefix.getDocument().addDocumentListener(new DocumentListener() {
 
 			@Override
@@ -61,7 +60,7 @@ public class PrefixView implements Operation {
 				}
 			}
 		});
-		
+
 		panel.updateUI();
 	}
 
@@ -78,8 +77,12 @@ public class PrefixView implements Operation {
 
 	@Override
 	public void updateOptionPanel(JPanel optionPanel) {
-		// TODO Auto-generated method stub
+		optionPanel.removeAll();
 		
+		optionPanel.setLayout(new MigLayout(""));
+		
+		optionPanel.updateUI();
+
 	}
 
 }
