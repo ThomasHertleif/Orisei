@@ -48,7 +48,7 @@ public class MainView {
 	private JMenu					mnHelp;
 	private JMenuItem				mntmAbout;
 	private FileList				fileList;
-	private JPanel optionPanel;
+	private JPanel					optionPanel;
 
 	/**
 	 * Launch the application.
@@ -147,13 +147,17 @@ public class MainView {
 				JOptionPane.PLAIN_MESSAGE);
 		});
 
-		frmOrisei.getContentPane().setLayout(new MigLayout("", "[grow][grow][]", "[center][grow][][grow]"));
+		frmOrisei.getContentPane().setLayout(
+			new MigLayout("", "[grow][grow][]", "[center][grow][][grow]"));
 
 		cBoxOperation = this.makeOperationSelect();
 		frmOrisei.getContentPane().add(cBoxOperation, "cell 0 0,growx");
 
 		panel = new JPanel();
 		frmOrisei.getContentPane().add(panel, "cell 1 0,grow");
+
+		optionPanel = new JPanel();
+		frmOrisei.getContentPane().add(optionPanel, "cell 0 1 3 1,grow");
 
 		btnRename = new JButton("Umbenennen");
 		frmOrisei.getContentPane().add(btnRename, "cell 2 0");
@@ -224,9 +228,6 @@ public class MainView {
 
 		tableData = new FileTable(0, 0);
 		tableData.setColumnIdentifiers(new String[] { "Originame", "Neuer Name" });
-		
-		optionPanel = new JPanel();
-		frmOrisei.getContentPane().add(optionPanel, "cell 0 1 3 1,grow");
 
 		fileList = new FileList(tableData, table);
 

@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -16,6 +17,7 @@ public class CountView implements Operation {
 	private JLabel				lblStart;
 	private JFormattedTextField	txtStart;
 	private ActionListener		onChange;
+	private JTextField			txtSep;
 
 	public CountView() {
 	}
@@ -63,6 +65,7 @@ public class CountView implements Operation {
 			}
 		});
 		
+		updateOptionPanel(optionPanel);
 		panel.updateUI();
 	}
 
@@ -86,7 +89,13 @@ public class CountView implements Operation {
 
 	@Override
 	public void updateOptionPanel(JPanel optionPanel) {
-		// TODO Auto-generated method stub
+		optionPanel.removeAll();
+
+		optionPanel.setLayout(new MigLayout(""));
+		txtSep = new JTextField("Hi");
+		optionPanel.add(txtSep, " cell 0 0");
+
+		optionPanel.updateUI();
 		
 	}
 

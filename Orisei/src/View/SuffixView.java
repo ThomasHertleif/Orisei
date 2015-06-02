@@ -28,7 +28,6 @@ public class SuffixView implements Operation {
 
 	public void updateUI(JPanel panel, JPanel optionPanel) {
 		panel.removeAll();
-		System.out.println("bob");
 
 		panel.setLayout(new MigLayout("", "[grow]", "[][]"));
 
@@ -80,7 +79,6 @@ public class SuffixView implements Operation {
 	@Override
 	public void updateOptionPanel(JPanel optionPanel) {
 		optionPanel.removeAll();
-		System.out.println("options!");
 
 		optionPanel.setLayout(new MigLayout(""));
 		chboxIgnorEx = new JCheckBox("Datei erweiterung beachten");
