@@ -48,6 +48,7 @@ public class MainView {
 	private JMenu					mnHelp;
 	private JMenuItem				mntmAbout;
 	private FileList				fileList;
+	private JPanel optionPanel;
 
 	/**
 	 * Launch the application.
@@ -146,7 +147,7 @@ public class MainView {
 				JOptionPane.PLAIN_MESSAGE);
 		});
 
-		frmOrisei.getContentPane().setLayout(new MigLayout("", "[][grow][]", "[center][][grow]"));
+		frmOrisei.getContentPane().setLayout(new MigLayout("", "[grow][grow][]", "[center][grow][][grow]"));
 
 		cBoxOperation = this.makeOperationSelect();
 		frmOrisei.getContentPane().add(cBoxOperation, "cell 0 0,growx");
@@ -163,7 +164,7 @@ public class MainView {
 
 		cBoxOperation.addActionListener((e) -> {
 			Operation selectedOperation = (Operation) cBoxOperation.getSelectedItem();
-			selectedOperation.updateUI(panel);
+			selectedOperation.updateUI(panel, optionPanel);
 			fileList.setRenamer(selectedOperation.getRenamer());
 			selectedOperation.setChangelistener((l) -> {
 				fileList.setRenamer(selectedOperation.getRenamer());
@@ -223,19 +224,22 @@ public class MainView {
 
 		tableData = new FileTable(0, 0);
 		tableData.setColumnIdentifiers(new String[] { "Originame", "Neuer Name" });
+		
+		optionPanel = new JPanel();
+		frmOrisei.getContentPane().add(optionPanel, "cell 0 1 3 1,grow");
 
 		fileList = new FileList(tableData, table);
 
 		table.setColumnSelectionAllowed(true);
 		table.setModel(tableData);
 
-		frmOrisei.getContentPane().add(new JScrollPane(table), "cell 0 2 3 1,grow");
+		frmOrisei.getContentPane().add(new JScrollPane(table), "cell 0 3 3 1,grow");
 
 		// Render initial option
 		// TODO: Reactor the following to note just repeat the select box event
 		// listener code
 		Operation selectedOperation = (Operation) cBoxOperation.getSelectedItem();
-		selectedOperation.updateUI(panel);
+		selectedOperation.updateUI(panel, optionPanel);
 		fileList.setRenamer(selectedOperation.getRenamer());
 		selectedOperation.setChangelistener((l) -> {
 			fileList.setRenamer(selectedOperation.getRenamer());

@@ -25,7 +25,7 @@ public class SearchAndReplaceView implements Operation {
 	private ActionListener	onChange;
 
 	@Override
-	public void updateUI(JPanel panel) {
+	public void updateUI(JPanel panel, JPanel optionPanel) {
 		panel.removeAll();
 		panel.setLayout(new MigLayout("", "[grow][grow]", "[][]"));
 
@@ -99,6 +99,12 @@ public class SearchAndReplaceView implements Operation {
 	@Override
 	public void setChangelistener(ActionListener l) {
 		this.onChange = l;
+	}
+
+	@Override
+	public void updateOptionPanel(JPanel optionPanel) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -24,8 +24,10 @@ public class CountView implements Operation {
 		return "Count";
 	};
 
+	
+	
 	@Override
-	public void updateUI(JPanel panel) {
+	public void updateUI(JPanel panel, JPanel optionPanel) {
 		panel.removeAll();
 
 		panel.setLayout(new MigLayout("", "[grow]", "[][]"));
@@ -81,5 +83,13 @@ public class CountView implements Operation {
 		this.onChange = l;
 		
 	}
+
+	@Override
+	public void updateOptionPanel(JPanel optionPanel) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 
 }

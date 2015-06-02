@@ -25,7 +25,7 @@ public class PrefixView implements Operation {
 	};
 
 	@Override
-	public void updateUI(JPanel panel) {
+	public void updateUI(JPanel panel, JPanel optionPanel) {
 		panel.removeAll();
 
 		panel.setLayout(new MigLayout("", "[grow]", "[][]"));
@@ -74,6 +74,12 @@ public class PrefixView implements Operation {
 	public void setChangelistener(ActionListener l) {
 		this.onChange = l;
 
+	}
+
+	@Override
+	public void updateOptionPanel(JPanel optionPanel) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
