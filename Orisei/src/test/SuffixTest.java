@@ -16,7 +16,13 @@ public class SuffixTest {
 	
 	@Test
 	public void withExt() {
-		Suffix suffix = new Suffix("-essen");
+		Suffix suffix = new Suffix("-essen", false);
+		assertEquals(suffix.makeNewName("pasta.md"), "pasta.md-essen");
+	}
+	
+	@Test
+	public void withExtIgnoringExt() {
+		Suffix suffix = new Suffix("-essen", true);
 		assertEquals(suffix.makeNewName("pasta.md"), "pasta-essen.md");
 	}
 	

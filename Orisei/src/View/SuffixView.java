@@ -61,13 +61,16 @@ public class SuffixView implements Operation {
 				}
 			}
 		});
+		
 		updateOptionPanel(optionPanel);
+		// TODO: listen for option changes
+		
 		panel.updateUI();
 	}
 
 	@Override
 	public RenameOperation getRenamer() {
-		return new Suffix(txtSuffix.getText());
+		return new Suffix(txtSuffix.getText(), this.getChBoxIgnorExValue());
 	}
 
 	@Override
@@ -81,7 +84,7 @@ public class SuffixView implements Operation {
 		optionPanel.removeAll();
 
 		optionPanel.setLayout(new MigLayout(""));
-		chboxIgnorEx = new JCheckBox("Datei erweiterung beachten");
+		chboxIgnorEx = new JCheckBox("Datei Erweiterung beachten");
 		optionPanel.add(chboxIgnorEx, " cell 0 0");
 		chboxIgnorEx.setSelected(true);
 
