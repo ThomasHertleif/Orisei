@@ -60,7 +60,8 @@ public class PrefixView implements Operation {
 				}
 			}
 		});
-
+		updateOptionPanel(optionPanel);
+		
 		panel.updateUI();
 	}
 

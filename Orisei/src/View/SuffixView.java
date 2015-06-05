@@ -61,10 +61,15 @@ public class SuffixView implements Operation {
 				}
 			}
 		});
-		
+
 		updateOptionPanel(optionPanel);
+		chboxIgnorEx.addActionListener((e) -> {
+			if (onChange != null) {
+				onChange.actionPerformed(null);
+			}	
+		});
 		// TODO: listen for option changes
-		
+
 		panel.updateUI();
 	}
 
@@ -91,7 +96,7 @@ public class SuffixView implements Operation {
 		optionPanel.updateUI();
 
 	}
-	
+
 	public boolean getChBoxIgnorExValue() {
 		return chboxIgnorEx.isSelected();
 	}

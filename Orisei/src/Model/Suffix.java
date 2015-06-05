@@ -34,10 +34,12 @@ public class Suffix implements RenameOperation {
 			return oldName;
 		}
 
-		int extStart = oldName.lastIndexOf(".");
+		if (ignore_extension) {
+			int extStart = oldName.lastIndexOf(".");
 
-		if (extStart > -1) {
-			return oldName.substring(0, extStart) + suffix + oldName.substring(extStart);
+			if (extStart > -1) {
+				return oldName.substring(0, extStart) + suffix + oldName.substring(extStart);
+			}
 		}
 
 		return oldName + suffix;

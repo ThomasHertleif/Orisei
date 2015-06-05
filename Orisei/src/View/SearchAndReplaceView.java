@@ -87,7 +87,7 @@ public class SearchAndReplaceView implements Operation {
 				}
 			}
 		});
-
+		updateOptionPanel(optionPanel);
 		panel.updateUI();
 	}
 
