@@ -3,9 +3,15 @@ package Model;
 public class Suffix implements RenameOperation {
 
 	private String	suffix;
+	private boolean	ignore_extension;
 
 	public Suffix(String suffix) {
 		this.suffix = suffix;
+	}
+
+	public Suffix(String suffix, boolean ignore_extension) {
+		this.suffix = suffix;
+		this.ignore_extension = ignore_extension;
 	}
 
 	public String getsuffix() {
@@ -28,10 +34,12 @@ public class Suffix implements RenameOperation {
 			return oldName;
 		}
 
-		int extStart = oldName.lastIndexOf(".");
+		if (ignore_extension) {
+			int extStart = oldName.lastIndexOf(".");
 
-		if (extStart > -1) {
-			return oldName.substring(0, extStart) + suffix + oldName.substring(extStart);
+			if (extStart > -1) {
+				return oldName.substring(0, extStart) + suffix + oldName.substring(extStart);
+			}
 		}
 
 		return oldName + suffix;

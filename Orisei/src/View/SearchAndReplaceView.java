@@ -25,7 +25,7 @@ public class SearchAndReplaceView implements Operation {
 	private ActionListener	onChange;
 
 	@Override
-	public void updateUI(JPanel panel) {
+	public void updateUI(JPanel panel, JPanel optionPanel) {
 		panel.removeAll();
 		panel.setLayout(new MigLayout("", "[grow][grow]", "[][]"));
 
@@ -87,7 +87,7 @@ public class SearchAndReplaceView implements Operation {
 				}
 			}
 		});
-
+		updateOptionPanel(optionPanel);
 		panel.updateUI();
 	}
 
@@ -95,10 +95,20 @@ public class SearchAndReplaceView implements Operation {
 	public RenameOperation getRenamer() {
 		return new SearchAndReplace(txtSearch.getText(), txtReplace.getText());
 	}
-	
+
 	@Override
 	public void setChangelistener(ActionListener l) {
 		this.onChange = l;
+	}
+
+	@Override
+	public void updateOptionPanel(JPanel optionPanel) {
+		optionPanel.removeAll();
+
+		optionPanel.setLayout(new MigLayout(""));
+		
+		optionPanel.updateUI();
+
 	}
 
 }

@@ -31,5 +31,13 @@ public class CountTest {
 		Count counter = new Count(-10, Position.After);
 		assertNotEquals("42test.txt", counter.makeNewName("test.txt"));
 	}
+	
 
+	@Test
+	public void SepCase() {
+		Count counter = new Count(42, "-");
+		assertNotEquals("42test.txt", counter.makeNewName("test.txt"));
+	}
+
+	
 }

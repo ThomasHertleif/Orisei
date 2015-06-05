@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -16,16 +17,18 @@ public class CountView implements Operation {
 	private JLabel				lblStart;
 	private JFormattedTextField	txtStart;
 	private ActionListener		onChange;
+	private JTextField			txtSep;
+	private JLabel				lblSep;
 
 	public CountView() {
 	}
-	
+
 	public String toString() {
 		return "Count";
 	};
 
 	@Override
-	public void updateUI(JPanel panel) {
+	public void updateUI(JPanel panel, JPanel optionPanel) {
 		panel.removeAll();
 
 		panel.setLayout(new MigLayout("", "[grow]", "[][]"));
@@ -60,7 +63,33 @@ public class CountView implements Operation {
 				}
 			}
 		});
-		
+
+		updateOptionPanel(optionPanel);
+
+		txtSep.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				if (onChange != null) {
+					onChange.actionPerformed(null);
+				}
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				if (onChange != null) {
+					onChange.actionPerformed(null);
+				}
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				if (onChange != null) {
+					onChange.actionPerformed(null);
+				}
+			}
+		});
+
 		panel.updateUI();
 	}
 
@@ -72,14 +101,28 @@ public class CountView implements Operation {
 		} catch (Exception e) {
 			startValue = 0;
 		}
-		
-		return new Count(startValue);
+
+		return new Count(startValue, txtSep.getText());
 	}
 
 	@Override
 	public void setChangelistener(ActionListener l) {
 		this.onChange = l;
-		
+
+	}
+
+	@Override
+	public void updateOptionPanel(JPanel optionPanel) {
+		optionPanel.removeAll();
+
+		optionPanel.setLayout(new MigLayout("", "[][grow]"));
+		lblSep = new JLabel("Seperator:");
+		txtSep = new JTextField("-");
+		optionPanel.add(lblSep, " cell 0 0");
+		optionPanel.add(txtSep, " cell 1 0,growx");
+
+		optionPanel.updateUI();
+
 	}
 
 }

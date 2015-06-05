@@ -25,7 +25,7 @@ public class PrefixView implements Operation {
 	};
 
 	@Override
-	public void updateUI(JPanel panel) {
+	public void updateUI(JPanel panel, JPanel optionPanel) {
 		panel.removeAll();
 
 		panel.setLayout(new MigLayout("", "[grow]", "[][]"));
@@ -36,7 +36,6 @@ public class PrefixView implements Operation {
 		txtPrefix = new JTextField();
 		panel.add(txtPrefix, "cell 0 1,growx");
 		txtPrefix.setColumns(10);
-
 
 		txtPrefix.getDocument().addDocumentListener(new DocumentListener() {
 
@@ -61,6 +60,7 @@ public class PrefixView implements Operation {
 				}
 			}
 		});
+		updateOptionPanel(optionPanel);
 		
 		panel.updateUI();
 	}
@@ -73,6 +73,16 @@ public class PrefixView implements Operation {
 	@Override
 	public void setChangelistener(ActionListener l) {
 		this.onChange = l;
+
+	}
+
+	@Override
+	public void updateOptionPanel(JPanel optionPanel) {
+		optionPanel.removeAll();
+		
+		optionPanel.setLayout(new MigLayout(""));
+		
+		optionPanel.updateUI();
 
 	}
 
