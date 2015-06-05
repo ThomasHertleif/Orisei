@@ -18,16 +18,15 @@ public class CountView implements Operation {
 	private JFormattedTextField	txtStart;
 	private ActionListener		onChange;
 	private JTextField			txtSep;
+	private JLabel				lblSep;
 
 	public CountView() {
 	}
-	
+
 	public String toString() {
 		return "Count";
 	};
 
-	
-	
 	@Override
 	public void updateUI(JPanel panel, JPanel optionPanel) {
 		panel.removeAll();
@@ -64,8 +63,33 @@ public class CountView implements Operation {
 				}
 			}
 		});
-		
+
 		updateOptionPanel(optionPanel);
+
+		txtSep.getDocument().addDocumentListener(new DocumentListener() {
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				if (onChange != null) {
+					onChange.actionPerformed(null);
+				}
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				if (onChange != null) {
+					onChange.actionPerformed(null);
+				}
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				if (onChange != null) {
+					onChange.actionPerformed(null);
+				}
+			}
+		});
+
 		panel.updateUI();
 	}
 
@@ -77,28 +101,28 @@ public class CountView implements Operation {
 		} catch (Exception e) {
 			startValue = 0;
 		}
-		
-		return new Count(startValue);
+
+		return new Count(startValue, txtSep.getText());
 	}
 
 	@Override
 	public void setChangelistener(ActionListener l) {
 		this.onChange = l;
-		
+
 	}
 
 	@Override
 	public void updateOptionPanel(JPanel optionPanel) {
 		optionPanel.removeAll();
 
-		optionPanel.setLayout(new MigLayout(""));
-		txtSep = new JTextField("Hi");
-		optionPanel.add(txtSep, " cell 0 0");
+		optionPanel.setLayout(new MigLayout("", "[][grow]"));
+		lblSep = new JLabel("Seperator:");
+		txtSep = new JTextField("-");
+		optionPanel.add(lblSep, " cell 0 0");
+		optionPanel.add(txtSep, " cell 1 0,growx");
 
 		optionPanel.updateUI();
-		
-	}
 
-	
+	}
 
 }
