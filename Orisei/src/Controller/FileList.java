@@ -87,7 +87,6 @@ public class FileList {
 			try {
 				Files.move(file.toPath(), renamedFile.toPath());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
